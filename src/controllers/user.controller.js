@@ -25,8 +25,14 @@ export class userController {
             if (!isValid) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
-            const token = generateToken(user, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN);
-            res.status(200).json({ message: 'Login successful', token });
+
+            const payload = {
+                id: user[0].id,
+                username: user[0].username,
+                id_role: user[0].id_role
+            }
+            const token = generateToken(payload, process.env.SECRET_KEY, process.env.EXPIRATION_TIME);
+            res.status(200).json({ message: 'Login successful', payload, token });
             console.log(user)
         } catch (error) {
             res.status(500).json({ message: error.message });
