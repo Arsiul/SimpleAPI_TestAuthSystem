@@ -1,10 +1,10 @@
 import { pool } from '../config/db.js';
 
 export class userModel{
-    static async createUser(name,username,passwor, id_role){ 
+    static async createUser(name,username,password, id_role){ 
         const [rows] = await pool.query(
             'INSERT INTO tb_user (name, username, password, id_role) VALUES (?, ?, ?, ?)',
-            [name, username, passwor, id_role]
+            [name, username, password, id_role ?? 1]
         );
         return rows;
     }
